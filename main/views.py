@@ -28,3 +28,7 @@ def signup_view(request):
         return redirect("home")
 
     return render(request, "main/signup.html")
+
+
+def index(request):
+    return render(request, 'main/index.html')
