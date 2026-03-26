@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> linkUpload Video</title>
+    <title>Upload Video</title>
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -48,6 +48,7 @@
 
             <div class="mb-3 text-muted">Manage</div>
             <a href="#" class="text-decoration-none mb-2">Home</a>
+            <a href="{% url 'profile' %}" class="text-decoration-none mb-2">Profile</a>
             <a href="#" class="text-decoration-none mb-2">Posts</a>
             <a href="#" class="text-decoration-none mb-2">Analytics</a>
             <a href="#" class="text-decoration-none mb-2">Comments</a>
@@ -76,9 +77,9 @@
                 <h5 class="mb-3">Select video to upload</h5>
                 <p class="text-muted">Or drag and drop it here</p>
 
-                <form method="post" enctype="multipart/form-data">
+                <form id="upload-form">
                     {% csrf_token %}
-                    <input type="file" name="video" class="form-control mb-3">
+                    <input type="file" id="video-input" name="video" class="form-control mb-3">
                     <button type="submit" class="btn btn-danger px-4">
                         Select video
                     </button>
@@ -115,6 +116,8 @@
     </div>
 </div>
 
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/upload.js' %}"></script>
 </body>
 </html>

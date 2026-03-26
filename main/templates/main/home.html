@@ -12,7 +12,7 @@
             width: 220px;
         }
         .feed-box {
-            max-width: 400px;
+            max-width: 420px;
             aspect-ratio: 9 / 16;
             background: #111;
             border-radius: 12px;
@@ -41,19 +41,21 @@
             <div class="mb-2">For You</div>
             <div class="mb-2">Explore</div>
             <div class="mb-2">Following</div>
-            <a href="/upload/">
-            <div class="mb-2"> Upload</div>
-            <a href="/profile/">
-                <div class="mb-2"> Profile</div>
-
-    
+            <a href="{% url 'upload' %}">
+            <div class="mb-2">Upload</div>
+        </a>
             <div class="mt-auto">
                 {% if user.is_authenticated %}
                     <div class="text-success mb-2">Logged in as {{ user.username }}</div>
-                    <a href="/logout" class="btn btn-danger w-100">Logout</a>
+                    <button id="logoutBtn" class="btn btn-danger w-100">Logout</button>
                 {% else %}
-                    <a href="/login" class="btn btn-primary w-100 mb-2">Log in</a>
-                    <a href="/signup" class="btn btn-outline-primary w-100">Sign up</a>
+                    <button class="btn btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Log in
+                    </button>
+
+                    <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#signupModal">
+                        Sign up
+                    </button>
                 {% endif %}
             </div>
         </div>
@@ -62,7 +64,7 @@
             <div class="d-flex gap-3">
 
                 <div class="feed-box">
-                    <img src="{% static 'img/test.webp' %}" alt="Feed image">
+                    <img src="{% static 'img/Test.webp' %}" alt="Feed image">
                 </div>
 
                 <div class="actions d-flex flex-column justify-content-end gap-3 pb-4">
@@ -77,6 +79,56 @@
     </div>
 </div>
 
+<div class="modal fade" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content p-4">
+
+      <form method="post" action="/login">
+        {% csrf_token %}
+
+        <h5 class="mb-3">Login</h5>
+
+        <input name="username" placeholder="Username" class="form-control mb-3">
+
+        <input name="password" type="password" placeholder="Password" class="form-control mb-3">
+
+        <button class="btn btn-primary w-100">
+            Login
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="signupModal">
+  <div class="modal-dialog">
+    <div class="modal-content p-4">
+
+      <form method="post" action="/signup">
+        {% csrf_token %}
+
+        <h5 class="mb-3">Sign up</h5>
+
+        <input name="username" placeholder="Username" class="form-control mb-3">
+
+        <input name="email" placeholder="Email" class="form-control mb-3">
+
+        <input name="password" type="password" placeholder="Password" class="form-control mb-3">
+
+        <button class="btn btn-primary w-100">
+            Sign up
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>
